@@ -4,6 +4,9 @@
         <meta charset="utf-8" lang="en">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <style>
+            #housing,#container{display:block;
+                margin:0 auto}
+                
           button{margin-left: 20px;
             padding: 15px;
             margin-top: 20px;
@@ -25,11 +28,13 @@
     </head>
 
     <body>
+        <div id="housing">
         <h3>CHOOSE FROM THE OPTIONS BELOW</h3>
         <h4> This game ends after either player reaches 5 points. </h4>
       <button  id="rock">ROCK</button>
       <button  id="paper">PAPER</button>
       <button id="scissors" >SCISSORS</button> 
+        </div>
       <br>
       <button id="play" onclick="game()">PLAY</button>
       <div id="container">
