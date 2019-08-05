@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" lang="en">
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <style>
+          button{margin-left: 20px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid grey;
+            border-radius: 5px;}
+            
+          body{background: papayawhip}
+          h4{ color:coral}
+          h3{color: gold}
+          #play{margin:20px auto;
+          display:block;
+          background:cyan}
+          #paper{background: ghostwhite}
+          #scissors{background: hotpink}
+          p{font-size: 120%}
+          #newScore{color:fuchsia}
+
+        </style>
+    </head>
+
+    <body>
+        <h3>CHOOSE FROM THE OPTIONS BELOW</h3>
+        <h4> This game ends after either player reaches 5 points. </h4>
+      <button  id="rock">ROCK</button>
+      <button  id="paper">PAPER</button>
+      <button id="scissors" >SCISSORS</button> 
+      <br>
+      <button id="play" onclick="game()">PLAY</button>
+      <div id="container">
+      <p id="display"></p>
+      <p id="scores"></p> <br>
+      <p id="newScore"></p><br>
+      <p id="what"></p>
+      </div>
+      <script>
+             const choice=document.createElement('p')
+             var choiceDisplay=document.getElementById('display')
+             var what=document.getElementById('what')
+             var verd=document.getElementById('scores')
+             var YourScore=0;
+             var ComputerScore=0;
+             var playerChoice=choice.textContent
+             var newScore=document.getElementById('newScore')
+            const buttons=document.querySelectorAll('button');
+
+//Give each button an event listener which returns a choice
+                  buttons.forEach(
+                  (button)=>{
+                  button.addEventListener('click',(userChoice)=>{
+                  playerChoice=button.id;
+                  })
+                 })
+          
+//Create a function you cn quote later for te user's choice
+          function userPlay(){
+              return playerChoice
+          }
+         
+  //Create a function for Computer's choice        
+          function ComputerPlay(){
+             let x= Math.random();
+             if (x<=0.34){ computerChoice= "rock";return computerChoice}
+             else if(x<=0.67){computerChoice="paper"; return computerChoice }
+             else {computerChoice= "scissors"; return computerChoice}
+             }
+
+
+
+//Create a function that compares both choices and gives a verdict
+         function playRound(choice1,choice2){
+                
+                choiceDisplay.textContent=("You chose "+ choice1+ " and the computer chose "+ choice2);
+                choiceDisplay.style.color='blue'
+                if(choice1==choice2){ verd.textContent=("It is a tie,please try again");
+                verd.style.color="brown"
+                                     return   ("It is a tie,please try again")}
+                else if (
+                   (choice1=="rock"&& choice2=="scissors")
+                                 ||
+                   (choice1=="scissors" && choice2=="paper")
+                                 ||
+                   (choice1=="paper"&& choice2=="rock")
+                        )
+                  {
+                      verd.textContent= ("You have won this round");
+                      verd.style.color="green"
+                      return ("You have won this round")
+                  }
+                else if(
+                   (choice2=="rock"&& choice1=="scissors")
+                                ||
+                   (choice2=="scissors" && choice1=="paper")
+                                ||
+                   (choice2=="paper"&& choice1=="rock")
+                       )
+                  {
+                       verd.textContent= ("The Computer won this round") ;
+                       verd.style.color="red"
+                       return("The Computer won this round")
+                  }
+                else {
+                      
+                      verd.textContent=('You have to replay this round')
+                      return('You have to replay this round');
+                      }
+    
+   
+}
+
+function clearScores(){
+                                    YourScore=0;
+                                   ComputerScore=0;
+                                   //what.textContent=""
+                                   }
+
+
+function final(a,b){ if ((a==5)||(b==5)){
+    if(a>b){ what.textContent= 
+    ("You have won this game."+ "You won "+a+" out of "+ (a+b)+ " rounds."); 
+    what.style.color="green"
+    }
+    else {what.textContent= ('You have lost this game. You won only'+ a+ " out of " + (a+b)+ " rounds");
+    what.style.color="red"
+     }
+clearScores()
+}
+}
+       // Create an update of scores on page
+          function updateScores(result){
+                if(
+                        (result=="It is a tie,please try again")||(result=='You have to replay this round')
+                  )
+                    { YourScore+=0, ComputerScore+=0;
+                        newScore.textContent= ('Your Score is '+YourScore + " and "+
+                        "The computer's score is " + ComputerScore);
+                        final (YourScore,ComputerScore)
+                       
+                    }
+                else if( result=="You have won this round"){ 
+                    YourScore+=1, ComputerScore+=0;
+                    newScore.textContent= ('Your Score is '+YourScore + " and "+
+                    "The computer's score is " + ComputerScore);
+                    final (YourScore,ComputerScore)
+                     
+                     }
+                else{
+                    ComputerScore+=1, YourScore+=0;
+                    newScore.textContent= ('Your Score is '+YourScore + " and "+
+                    "The computer's score is  " + ComputerScore);
+                    final (YourScore,ComputerScore)
+                   
+                }
+                         
+    
+          }
+             
+
+
+
+
+function game(){
+    
+    var me=userPlay();
+    var him=ComputerPlay();
+    var result= playRound(me,him);
+    updateScores(result);
+    }
+
+              
+      </script>
+
+    </body>
+</html>
+
